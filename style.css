@@ -2,7 +2,7 @@
    CSS Custom Properties (Design System)
    ========================================== */
 :root {
-    /* Colors */
+    /* Dark Mode Colors (Default) */
     --color-bg-primary: #0a0a0f;
     --color-bg-secondary: #13131a;
     --color-bg-card: rgba(20, 20, 30, 0.6);
@@ -56,6 +56,22 @@
     --transition-slow: 500ms ease;
 }
 
+/* Light Mode Theme */
+[data-theme="light"] {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f8f9fa;
+    --color-bg-card: rgba(255, 255, 255, 0.8);
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #4a5568;
+    --color-text-muted: #718096;
+
+    --gradient-hero: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
 /* ==========================================
    Reset & Base Styles
    ========================================== */
@@ -75,12 +91,67 @@ body {
     color: var(--color-text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
+}
+
+/* ==========================================
+   Theme Toggle Button
+   ========================================== */
+.theme-toggle {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.theme-toggle svg {
+    position: absolute;
+    transition: all var(--transition-base);
+    color: var(--color-text-primary);
+}
+
+.theme-toggle .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+}
+
+.theme-toggle .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .moon-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
 }
 
 /* ==========================================
@@ -142,6 +213,10 @@ body {
     animation-delay: 14s;
 }
 
+[data-theme="light"] .gradient-orb {
+    opacity: 0.2;
+}
+
 @keyframes float {
 
     0%,
@@ -153,34 +228,6 @@ body {
         transform: translate(30px, -30px) scale(1.1);
     }
 
-    66% {
-        transform: translate(-20px, 20px) scale(0.9);
-    }
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 900px;
-    animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero-title {
-    font-size: var(--font-size-5xl);
-    font-weight: 800;
     line-height: 1.2;
     margin-bottom: var(--spacing-md);
 }
@@ -305,6 +352,16 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+[data-theme="light"] .step-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .step-card:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: var(--shadow-md);
+}
+
 .step-icon {
     width: 64px;
     height: 64px;
@@ -371,6 +428,16 @@ body {
     transform: translateY(-8px);
     border-color: rgba(139, 92, 246, 0.5);
     box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="light"] .platform-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .platform-card:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: var(--shadow-md);
 }
 
 .platform-badge {
@@ -616,6 +683,10 @@ body {
     .cta-title {
         font-size: var(--font-size-3xl);
     }
+
+    .hero-illustration {
+        max-width: 300px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -630,6 +701,10 @@ body {
     .hero-stats {
         flex-direction: column;
         gap: var(--spacing-sm);
+    }
+
+    .hero-illustration {
+        max-width: 250px;
     }
 }
 
