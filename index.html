@@ -16,6 +16,26 @@
 </head>
 
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
     <!-- Hero Section -->
     <section class="hero" id="hero-section">
         <div class="hero-background">
@@ -55,6 +75,9 @@
                             stroke-linejoin="round" />
                     </svg>
                 </a>
+            </div>
+            <div class="hero-illustration">
+                <!-- Abstract 3D-like illustration could go here -->
             </div>
         </div>
     </section>
@@ -130,16 +153,67 @@
         </div>
     </section>
 
+    <!-- Earnings Calculator Section -->
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <h2 class="section-title">Estimate Your Earnings</h2>
+            <p class="section-subtitle">See how much you could make based on your time</p>
+
+            <div class="calculator-container">
+                <div class="calculator-card">
+                    <div class="input-group">
+                        <label for="hours-input">Hours per day</label>
+                        <input type="range" id="hours-input" min="0.5" max="8" step="0.5" value="2">
+                        <span class="range-value" id="hours-value">2 hours</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="days-input">Days per week</label>
+                        <input type="range" id="days-input" min="1" max="7" step="1" value="5">
+                        <span class="range-value" id="days-value">5 days</span>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="result-label">Potential Monthly Earnings</div>
+                        <div class="result-amount" id="estimated-earnings">$150 - $450</div>
+                        <p class="result-note">*Estimates based on average user performance across multiple platforms
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Platforms Section -->
     <section class="platforms" id="platforms">
         <div class="container">
-            <h2 class="section-title">Top Survey Platforms</h2>
-            <p class="section-subtitle">Handpicked platforms with proven track records</p>
+            <h2 class="section-title">Top Earning Platforms</h2>
+            <p class="section-subtitle">Hand-picked for reliability and high payout rates</p>
+
+            <!-- Platform Filtering -->
+            <div class="filter-container">
+                <div class="search-wrapper">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="platform-search" placeholder="Search platforms...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="surveys">Surveys</button>
+                    <button class="filter-btn" data-filter="videos">Videos</button>
+                    <button class="filter-btn" data-filter="tasks">Tasks</button>
+                    <button class="filter-btn" data-filter="offers">Offers</button>
+                    <button class="filter-btn" data-filter="instant pay">Instant Pay</button>
+                </div>
+            </div>
 
             <div class="platforms-grid">
                 <!-- YSense -->
                 <div class="platform-card" data-platform="ysense">
-                    <div class="platform-badge">Popular</div>
+                    <div class="platform-badge">Top Rated</div>
                     <div class="platform-header">
                         <h3 class="platform-name">YSense</h3>
                         <div class="platform-rating">
@@ -329,15 +403,15 @@
                         <h3 class="platform-name">GrabPoints</h3>
                         <div class="platform-rating">
                             <span class="stars">★★★★☆</span>
-                            <span class="rating-text">4.5/5</span>
+                            <span class="rating-text">4.6/5</span>
                         </div>
                     </div>
                     <p class="platform-description">
-                        Complete surveys and offers to earn points. Redeem for PayPal cash or popular gift cards.
+                        Watch TV, answer surveys, and complete offers to earn points redeemable for free gift cards.
                     </p>
                     <div class="platform-features">
-                        <div class="feature-tag">Points</div>
-                        <div class="feature-tag">PayPal</div>
+                        <div class="feature-tag">TV</div>
+                        <div class="feature-tag">Surveys</div>
                         <div class="feature-tag">Offers</div>
                     </div>
                     <div class="platform-earning">
@@ -355,26 +429,25 @@
 
                 <!-- PrimeOpinion -->
                 <div class="platform-card" data-platform="primeopinion">
-                    <div class="platform-badge">High Paying</div>
+                    <div class="platform-badge">High Payout</div>
                     <div class="platform-header">
                         <h3 class="platform-name">PrimeOpinion</h3>
                         <div class="platform-rating">
                             <span class="stars">★★★★★</span>
-                            <span class="rating-text">4.8/5</span>
+                            <span class="rating-text">4.9/5</span>
                         </div>
                     </div>
                     <p class="platform-description">
-                        Premium survey platform with higher-paying opportunities. Share your opinions and earn top
-                        rewards.
+                        High-paying surveys with low withdrawal thresholds. One of the fastest-growing survey sites.
                     </p>
                     <div class="platform-features">
                         <div class="feature-tag">High Pay</div>
                         <div class="feature-tag">Surveys</div>
-                        <div class="feature-tag">Premium</div>
+                        <div class="feature-tag">Fast</div>
                     </div>
                     <div class="platform-earning">
                         <span class="earning-label">Potential Earnings:</span>
-                        <span class="earning-amount">$60-$180/mo</span>
+                        <span class="earning-amount">$60-$250/mo</span>
                     </div>
                     <a href="https://primeopinion.com/register?ref=9d4c66d3-9c00-4f72-8635-52ca2769befa" target="_blank"
                         rel="noopener noreferrer" class="platform-cta" id="cta-primeopinion">
@@ -391,15 +464,13 @@
                         <h3 class="platform-name">Surveoo</h3>
                         <div class="platform-rating">
                             <span class="stars">★★★★☆</span>
-                            <span class="rating-text">4.6/5</span>
+                            <span class="rating-text">4.5/5</span>
                         </div>
                     </div>
                     <p class="platform-description">
-                        International survey platform with diverse opportunities. Participate in market research and get
-                        paid.
+                        Participate in market research and get paid for your opinion. Simple and straightforward.
                     </p>
                     <div class="platform-features">
-                        <div class="feature-tag">International</div>
                         <div class="feature-tag">Research</div>
                         <div class="feature-tag">Surveys</div>
                     </div>
@@ -419,14 +490,147 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Common questions about earning online</p>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How much can I really earn?
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Earnings vary based on the time you invest and the platforms you use. Most active users earn
+                            between $50 to $500 per month. Consistent effort yields the best results.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are these platforms legitimate?
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we only list verified platforms with a proven track record of paying their users. We
+                            regularly test them to ensure they remain reliable.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I get paid?
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most platforms offer PayPal, gift cards (Amazon, Google Play, etc.), or direct bank
+                            transfers. Some even offer cryptocurrency withdrawals.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do I need to pay to join?
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No! Legitimate survey and earning sites are always free to join. Never pay a fee to sign up
+                            for a survey platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <p class="section-subtitle">See what others are earning with EasyBucks</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-info">
+                            <div class="user-name">John D.</div>
+                            <div class="user-location">USA</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I make about $200 extra every month just by doing surveys on my
+                        commute. It pays for my gas!"</p>
+                    <div class="testimonial-earnings">Earned $2,400+</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info">
+                            <div class="user-name">Sarah A.</div>
+                            <div class="user-location">UK</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"YSense and PrimeOpinion are my favorites. The payouts are fast and the
+                        surveys are actually interesting."</p>
+                    <div class="testimonial-earnings">Earned $1,800+</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="user-avatar">MK</div>
+                        <div class="user-info">
+                            <div class="user-name">Michael K.</div>
+                            <div class="user-location">Canada</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I was skeptical at first, but I received my first $50 Amazon gift card
+                        within a week. Totally legit."</p>
+                    <div class="testimonial-earnings">Earned $500+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Join the EasyBucks Community</h2>
+                <p class="newsletter-description">Get the latest earning tips, exclusive offers, and platform updates
+                    delivered straight to your inbox.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+                <div class="newsletter-success" id="newsletter-success">
+                    Thanks for subscribing! Watch your inbox for earning tips. 🚀
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
     <section class="final-cta">
         <div class="container">
             <div class="cta-content">
                 <h2 class="cta-title">Ready to Start Earning?</h2>
                 <p class="cta-description">
-                    Join thousands of people already making money online. Pick your favorite platforms and start earning
-                    today!
+                    Join thousands of others who are turning their spare time into extra cash.
+                    Choose a platform and start earning today!
                 </p>
                 <a href="#platforms" class="cta-button secondary" id="final-cta">
                     <span>Browse All Platforms</span>

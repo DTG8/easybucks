@@ -1,10 +1,16 @@
-const target = document.querySelector(this.getAttribute('href'));
-if (target) {
-    target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-}
+// ==========================================
+// Smooth Scrolling for Anchor Links
+// ==========================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
 
@@ -203,3 +209,192 @@ document.addEventListener('DOMContentLoaded', createScrollIndicator);
 // ==========================================
 console.log('%cEasyBucks 💰', 'color: #8B5CF6; font-size: 24px; font-weight: bold;');
 console.log('%cStart earning money online today!', 'color: #EC4899; font-size: 14px;');
+
+// ==========================================
+// Earnings Calculator Logic
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const hoursInput = document.getElementById('hours-input');
+    const daysInput = document.getElementById('days-input');
+    const hoursValue = document.getElementById('hours-value');
+    const daysValue = document.getElementById('days-value');
+    const estimatedEarnings = document.getElementById('estimated-earnings');
+
+    if (!hoursInput || !daysInput || !estimatedEarnings) return;
+
+    const calculateEarnings = () => {
+        const hours = parseFloat(hoursInput.value);
+        const days = parseInt(daysInput.value);
+
+        // Update display values
+        hoursValue.textContent = `${hours} hour${hours !== 1 ? 's' : ''}`;
+        daysValue.textContent = `${days} day${days !== 1 ? 's' : ''}`;
+
+        // Calculation logic (estimated average hourly rate across platforms ~$5-15)
+        const minHourlyRate = 4;
+        const maxHourlyRate = 12;
+
+        const weeklyHours = hours * days;
+        const monthlyHours = weeklyHours * 4.33; // Average weeks in a month
+
+        const minMonthly = Math.round(monthlyHours * minHourlyRate);
+        const maxMonthly = Math.round(monthlyHours * maxHourlyRate);
+
+        estimatedEarnings.textContent = `$${minMonthly} - $${maxMonthly}`;
+
+        // Add animation class
+        estimatedEarnings.classList.remove('pulse');
+        void estimatedEarnings.offsetWidth; // Trigger reflow
+        estimatedEarnings.classList.add('pulse');
+    };
+
+    hoursInput.addEventListener('input', calculateEarnings);
+    daysInput.addEventListener('input', calculateEarnings);
+
+    // Initial calculation
+    calculateEarnings();
+});
+
+// Add pulse animation for calculator result
+const calcStyle = document.createElement('style');
+calcStyle.textContent = `
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .pulse {
+        animation: pulse 0.3s ease-in-out;
+    }
+`;
+document.head.appendChild(calcStyle);
+
+// ==========================================
+// Platform Filtering & Search Logic
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('platform-search');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const platformCards = document.querySelectorAll('.platform-card');
+
+    if (!searchInput || !filterButtons.length) return;
+
+    // Helper to check if a card matches the category
+    const matchesCategory = (card, category) => {
+        if (category === 'all') return true;
+
+        // Get feature tags text
+        const features = Array.from(card.querySelectorAll('.feature-tag'))
+            .map(tag => tag.textContent.toLowerCase());
+
+        // Check if any feature includes the category name (e.g. "surveys", "videos")
+        return features.some(feature => feature.includes(category));
+    };
+
+    // Helper to check if a card matches search text
+    const matchesSearch = (card, searchText) => {
+        if (!searchText) return true;
+
+        const name = card.querySelector('.platform-name').textContent.toLowerCase();
+        const description = card.querySelector('.platform-description').textContent.toLowerCase();
+
+        return name.includes(searchText) || description.includes(searchText);
+    };
+
+    const filterPlatforms = () => {
+        const searchText = searchInput.value.toLowerCase();
+        const activeBtn = document.querySelector('.filter-btn.active');
+        const category = activeBtn ? activeBtn.dataset.filter : 'all';
+
+        platformCards.forEach(card => {
+            const isVisible = matchesCategory(card, category) && matchesSearch(card, searchText);
+
+            if (isVisible) {
+                card.style.display = 'block';
+                // Re-trigger animation
+                card.style.animation = 'none';
+                card.offsetHeight; /* trigger reflow */
+                card.style.animation = null;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    };
+
+    // Event Listeners
+    searchInput.addEventListener('input', filterPlatforms);
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active state
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            filterPlatforms();
+        });
+    });
+});
+
+// ==========================================
+// FAQ Accordion Logic
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const answer = item.querySelector('.faq-answer');
+
+            // Toggle active class
+            item.classList.toggle('active');
+
+            // Toggle max-height for smooth animation
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = 0;
+            }
+
+            // Close other items (optional, for accordion behavior)
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== question) {
+                    const otherItem = otherQuestion.parentElement;
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+
+                    if (otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherAnswer.style.maxHeight = 0;
+                    }
+                }
+            });
+        });
+    });
+});
+
+// ==========================================
+// Newsletter Form Submission
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newsletter-form');
+    const successMsg = document.getElementById('newsletter-success');
+
+    if (form && successMsg) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Simulate API call
+            const btn = form.querySelector('button');
+            const originalText = btn.textContent;
+            btn.textContent = 'Subscribing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMsg.style.display = 'block';
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+    }
+});
